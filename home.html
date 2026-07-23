@@ -1,0 +1,2390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<link rel="stylesheet" href="cursor.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHONK HUB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+  --accent:#ff00ff;
+  --accent2:#8a00ff;
+  --accent3:#ff3cac;
+  --bg:#05010d;
+  --panel:rgba(14,2,26,0.88);
+  --panel2:rgba(22,8,36,0.9);
+  --border:rgba(255,0,255,0.18);
+  --text:#ffffff;
+  --muted:#a984c4;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Orbitron',sans-serif;
+}
+
+html,body{
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+body{
+  padding-bottom:200px;
+  background:radial-gradient(ellipse at top,#2d0045 0%,#05010d 65%);
+  min-height:100vh;
+}
+
+a{color:inherit;text-decoration:none;}
+
+/* ===== BACKGROUND ===== */
+.ghosts{
+  position:fixed;
+  width:100%;height:100%;
+  top:0;left:0;
+  overflow:hidden;
+  pointer-events:none;
+  z-index:0;
+}
+
+.ghost{
+  position:absolute;
+  width:160px;height:160px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(255,0,255,0.28),transparent 70%);
+  filter:blur(22px);
+  animation:ghostMove linear infinite;
+  opacity:0;
+}
+
+.g1{top:8%;left:-200px;animation-duration:20s;}
+.g2{top:35%;left:-260px;animation-duration:26s;animation-delay:4s;}
+.g3{top:60%;left:-180px;animation-duration:19s;animation-delay:8s;}
+.g4{top:80%;left:-220px;animation-duration:30s;animation-delay:2s;}
+.g5{top:18%;left:-190px;animation-duration:23s;animation-delay:11s;}
+
+@keyframes ghostMove{
+  0%{transform:translateX(0) scale(1);opacity:0;}
+  10%{opacity:0.38;}
+  50%{transform:translateX(65vw) scale(1.4);}
+  100%{transform:translateX(140vw) scale(1);opacity:0;}
+}
+
+.particles{
+  position:fixed;
+  width:100%;height:100%;
+  top:0;left:0;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:0;
+}
+
+.particles span{
+  position:absolute;
+  display:block;
+  width:5px;height:5px;
+  background:#ff00ff;
+  border-radius:50%;
+  box-shadow:0 0 10px #ff00ff,0 0 22px #ff00ff;
+  animation:particleMove linear infinite;
+  opacity:0;
+}
+
+.particles span:nth-child(1){left:5%;animation-duration:8s;animation-delay:0s;}
+.particles span:nth-child(2){left:18%;animation-duration:11s;animation-delay:2s;}
+.particles span:nth-child(3){left:32%;animation-duration:7s;animation-delay:1s;}
+.particles span:nth-child(4){left:48%;animation-duration:13s;animation-delay:3.5s;}
+.particles span:nth-child(5){left:63%;animation-duration:9s;animation-delay:5s;}
+.particles span:nth-child(6){left:77%;animation-duration:12s;animation-delay:4s;}
+.particles span:nth-child(7){left:88%;animation-duration:10s;animation-delay:2.5s;}
+.particles span:nth-child(8){left:95%;animation-duration:15s;animation-delay:1s;}
+
+@keyframes particleMove{
+  0%{transform:translateY(100vh) scale(0);opacity:0;}
+  10%{opacity:0.75;}
+  100%{transform:translateY(-120vh) scale(1.5);opacity:0;}
+}
+
+/* ===== TOPBAR ===== */
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  padding:15px 28px;
+  background:rgba(5,1,13,0.82);
+  border-bottom:1px solid var(--border);
+  position:sticky;
+  top:0;
+  z-index:1000;
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+}
+
+.logo{
+  font-size:24px;
+  font-weight:900;
+  background:linear-gradient(135deg,#ff00ff,#8a00ff,#ff3cac);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  letter-spacing:2px;
+  white-space:nowrap;
+  filter:drop-shadow(0 0 14px rgba(255,0,255,0.55));
+}
+
+.view-title{
+  font-size:10px;
+  color:var(--muted);
+  letter-spacing:4px;
+  text-transform:uppercase;
+  opacity:.65;
+}
+
+.search-box{
+  width:340px;
+  max-width:44vw;
+  position:relative;
+}
+
+.search-box::before{
+  content:"⌕";
+  position:absolute;
+  left:16px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:16px;
+  z-index:1;
+  opacity:0.4;
+  pointer-events:none;
+  font-family:sans-serif;
+}
+
+.search-box input{
+  width:100%;
+  padding:11px 20px 11px 42px;
+  border-radius:40px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,0.05);
+  color:white;
+  outline:none;
+  font-size:12px;
+  font-family:'Orbitron',sans-serif;
+  transition:.3s;
+  backdrop-filter:blur(10px);
+}
+
+.search-box input::placeholder{color:rgba(255,255,255,0.28);}
+
+.search-box input:focus{
+  border-color:var(--accent);
+  background:rgba(255,0,255,0.07);
+  box-shadow:0 0 22px rgba(255,0,255,0.22);
+}
+
+/* ===== VIEW TRANSITIONS ===== */
+.view{display:none;position:relative;z-index:1;}
+
+.view.active{
+  display:block;
+  animation:viewIn .45s cubic-bezier(.22,1,.36,1);
+}
+
+@keyframes viewIn{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* ===== HERO ===== */
+.hero{
+  text-align:center;
+  padding:44px 15px 16px;
+}
+
+.hero-logo-wrap{
+  position:relative;
+  display:inline-block;
+  margin-bottom:6px;
+}
+
+.hero-logo-wrap::before{
+  content:"";
+  position:absolute;
+  inset:-14px;
+  border-radius:50%;
+  background:conic-gradient(from 0deg,#ff00ff,#8a00ff,#ff3cac,transparent,#ff00ff);
+  animation:spinRing 5s linear infinite;
+  filter:blur(10px);
+  opacity:0.65;
+  z-index:0;
+}
+
+@keyframes spinRing{to{transform:rotate(360deg);}}
+
+.hero img{
+  width:150px;
+  height:150px;
+  object-fit:cover;
+  border-radius:50%;
+  border:2px solid rgba(255,0,255,0.6);
+  box-shadow:0 0 40px rgba(255,0,255,0.45),0 0 80px rgba(138,0,255,0.2);
+  display:block;
+  position:relative;
+  z-index:1;
+  animation:floatY 6s ease-in-out infinite;
+}
+
+@keyframes floatY{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-12px);}
+}
+
+.hero p{
+  margin-top:18px;
+  color:rgba(255,255,255,0.38);
+  font-size:10px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+}
+
+/* ===== SECTION LABEL ===== */
+.section-label{
+  padding:24px 30px 4px;
+  font-size:10px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:var(--muted);
+  opacity:.65;
+}
+
+/* ===== SONGS GRID ===== */
+.songs{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(256px,1fr));
+  gap:18px;
+  padding:16px 22px 220px; /* generous bottom so player bar never hides cards */
+}
+
+/* ===== SKELETON ===== */
+.skeleton-card{
+  background:rgba(255,255,255,0.03);
+  border-radius:22px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.05);
+}
+
+.sk-img{
+  width:100%;height:234px;
+  background:linear-gradient(90deg,rgba(255,255,255,0.04) 25%,rgba(255,255,255,0.09) 50%,rgba(255,255,255,0.04) 75%);
+  background-size:200% 100%;
+  animation:shimmer 1.7s infinite;
+}
+
+.sk-body{padding:16px 18px 20px;}
+
+.sk-line{
+  height:12px;border-radius:6px;
+  background:linear-gradient(90deg,rgba(255,255,255,0.04) 25%,rgba(255,255,255,0.09) 50%,rgba(255,255,255,0.04) 75%);
+  background-size:200% 100%;
+  animation:shimmer 1.7s infinite;
+  margin-bottom:10px;
+}
+
+.sk-line.short{width:55%;}
+.sk-line.xshort{width:35%;margin-bottom:18px;}
+
+.sk-btns{display:flex;gap:10px;}
+
+.sk-btn{
+  flex:1;height:42px;border-radius:14px;
+  background:linear-gradient(90deg,rgba(255,255,255,0.04) 25%,rgba(255,255,255,0.09) 50%,rgba(255,255,255,0.04) 75%);
+  background-size:200% 100%;
+  animation:shimmer 1.7s infinite;
+}
+
+@keyframes shimmer{
+  0%{background-position:200% 0;}
+  100%{background-position:-200% 0;}
+}
+
+/* ===== CARD ===== */
+.card{
+  background:rgba(10,3,20,0.72);
+  border-radius:22px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.07);
+  transition:transform .4s cubic-bezier(.22,1,.36,1),box-shadow .4s,border-color .4s;
+  position:relative;
+  opacity:0;
+  transform:translateY(24px);
+  animation:cardIn .55s cubic-bezier(.22,1,.36,1) forwards;
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+
+@keyframes cardIn{to{opacity:1;transform:translateY(0);}}
+
+.card:hover{
+  transform:translateY(-10px) scale(1.015);
+  border-color:rgba(255,0,255,0.45);
+  box-shadow:0 24px 60px rgba(0,0,0,0.55),0 0 0 1px rgba(255,0,255,0.12),0 0 40px rgba(255,0,255,0.12);
+}
+
+.card.playing{
+  border-color:var(--accent);
+  box-shadow:0 0 0 1px rgba(255,0,255,0.35),0 0 50px rgba(255,0,255,0.25);
+}
+
+.phonk-image{
+  width:100%;
+  height:234px;
+  overflow:hidden;
+  position:relative;
+}
+
+.phonk-image img{
+  width:100%;height:100%;
+  object-fit:cover;
+  transition:transform .65s ease;
+}
+
+.card:hover .phonk-image img{
+  transform:scale(1.1);
+}
+
+.phonk-image::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to bottom,transparent 45%,rgba(5,1,13,0.88) 100%);
+  pointer-events:none;
+}
+
+.cloud-badge{
+  position:absolute;
+  top:12px;left:12px;
+  background:rgba(255,0,255,0.18);
+  border:1px solid rgba(255,0,255,0.45);
+  color:#fff;
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:2px;
+  padding:5px 12px;
+  border-radius:20px;
+  backdrop-filter:blur(10px);
+  z-index:5;
+}
+
+.star-btn{
+  position:absolute;
+  top:12px;right:12px;
+  width:38px;height:38px;
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:50%;
+  background:rgba(0,0,0,0.45);
+  backdrop-filter:blur(14px);
+  color:rgba(255,255,255,0.5);
+  font-size:17px;
+  cursor:pointer;
+  transition:.28s;
+  z-index:5;
+}
+
+.star-btn:hover{
+  background:rgba(255,215,0,0.18);
+  border-color:rgba(255,215,0,0.5);
+  transform:scale(1.15);
+  color:#ffd700;
+}
+
+.star-btn.active{
+  color:#ffd700;
+  background:rgba(255,215,0,0.15);
+  border-color:rgba(255,215,0,0.5);
+  box-shadow:0 0 18px rgba(255,215,0,0.55);
+}
+
+.content{
+  padding:15px 18px 18px;
+}
+
+.content h2{
+  font-size:14px;
+  font-weight:700;
+  margin-bottom:5px;
+  letter-spacing:0.5px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.artist{
+  color:var(--accent);
+  margin-bottom:15px;
+  font-size:10px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+.buttons{display:flex;gap:8px;}
+
+.play-btn{
+  flex:1;
+  background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 100%);
+  border:none;
+  color:white;
+  padding:13px 10px;
+  border-radius:14px;
+  font-weight:700;
+  font-size:10px;
+  letter-spacing:2px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  transition:transform .22s,box-shadow .22s,filter .22s;
+  font-family:'Orbitron',sans-serif;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 4px 18px rgba(255,0,255,0.3);
+}
+
+/* Sheen sweep on hover */
+.play-btn::after{
+  content:"";
+  position:absolute;
+  top:0;left:-100%;
+  width:60%;height:100%;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,0.22),transparent);
+  transition:left .4s ease;
+}
+
+.play-btn:hover::after{left:160%;}
+
+.play-btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 30px rgba(255,0,255,0.5);
+  filter:brightness(1.1);
+}
+
+.play-btn:active{
+  transform:translateY(0) scale(.96);
+  box-shadow:0 3px 12px rgba(255,0,255,0.3);
+}
+
+/* Small CSS triangle — play icon */
+.play-tri{
+  width:0;height:0;
+  border-style:solid;
+  border-width:5px 0 5px 8px;
+  border-color:transparent transparent transparent rgba(255,255,255,0.9);
+  flex-shrink:0;
+  transition:opacity .2s;
+}
+
+.play-btn.playing .play-tri{display:none;}
+
+.download-btn{
+  flex:1;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.14);
+  color:rgba(255,255,255,0.85);
+  padding:13px 10px;
+  border-radius:14px;
+  font-weight:700;
+  font-size:10px;
+  letter-spacing:2px;
+  cursor:pointer;
+  transition:transform .22s,background .22s,border-color .22s,color .22s;
+  font-family:'Orbitron',sans-serif;
+  position:relative;
+  overflow:hidden;
+}
+
+.download-btn:hover{
+  background:rgba(255,255,255,0.1);
+  border-color:rgba(255,255,255,0.3);
+  color:white;
+  transform:translateY(-3px);
+}
+
+/* MINI WAVE */
+.mini-wave{
+  display:flex;
+  align-items:flex-end;
+  gap:3px;
+  height:15px;
+}
+
+.mini-wave span{
+  width:3px;
+  background:white;
+  border-radius:10px;
+  height:5px;
+  animation:none;
+}
+
+.play-btn.playing .mini-wave span{
+  animation:wave 1s infinite ease-in-out;
+}
+
+.mini-wave span:nth-child(1){height:5px;}
+.mini-wave span:nth-child(2){height:13px;animation-delay:.2s;}
+.mini-wave span:nth-child(3){height:8px;animation-delay:.4s;}
+.mini-wave span:nth-child(4){height:15px;animation-delay:.6s;}
+
+@keyframes wave{
+  0%{transform:scaleY(.4);}
+  50%{transform:scaleY(1.6);}
+  100%{transform:scaleY(.4);}
+}
+
+.empty-state{
+  text-align:center;
+  padding:60px 20px;
+  color:#555;
+  grid-column:1/-1;
+}
+
+.empty-state-icon{font-size:44px;margin-bottom:14px;opacity:.5;}
+
+/* ===== PLAYER BAR ===== */
+#nowPlaying{
+  position:fixed;
+  left:50%;
+  bottom:86px;
+  transform:translateX(-50%);
+  width:94%;
+  max-width:920px;
+  background:rgba(8,1,18,0.94);
+  border-radius:28px;
+  padding:16px 20px;
+  display:flex;
+  flex-direction:column;
+  gap:13px;
+  z-index:9999;
+  border:1px solid rgba(255,0,255,0.28);
+  box-shadow:
+    0 24px 70px rgba(0,0,0,0.7),
+    0 0 50px rgba(255,0,255,0.1),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+  backdrop-filter:blur(32px);
+  -webkit-backdrop-filter:blur(32px);
+  transition:bottom .45s ease,opacity .45s ease;
+}
+
+#nowPlaying::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:28px;
+  background:linear-gradient(135deg,rgba(255,0,255,0.04),transparent 60%,rgba(138,0,255,0.04));
+  pointer-events:none;
+}
+
+#nowPlaying.hidden{
+  opacity:0;
+  pointer-events:none;
+  bottom:20px;
+}
+
+.player-top{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.now-art{
+  width:54px;height:54px;
+  border-radius:14px;
+  object-fit:cover;
+  border:2px solid rgba(255,0,255,0.4);
+  flex-shrink:0;
+  box-shadow:0 0 22px rgba(255,0,255,0.28);
+  transition:.3s;
+}
+
+.player-controls{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  flex-shrink:0;
+}
+
+#prevBtn,#nextBtn,#shuffleBtn{
+  width:38px;height:38px;
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:50%;
+  background:rgba(255,255,255,0.07);
+  color:rgba(255,255,255,0.7);
+  cursor:pointer;
+  transition:background .22s,border-color .22s,transform .22s,box-shadow .22s,color .22s;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+}
+
+#prevBtn svg,#nextBtn svg,#shuffleBtn svg{
+  width:16px;height:16px;
+  flex-shrink:0;
+}
+
+#prevBtn:hover,#nextBtn:hover,#shuffleBtn:hover{
+  background:rgba(255,0,255,0.16);
+  border-color:rgba(255,0,255,0.38);
+  color:white;
+  transform:scale(1.1);
+  box-shadow:0 0 14px rgba(255,0,255,0.22);
+}
+
+#shuffleBtn.active{
+  background:rgba(255,0,255,0.2);
+  border-color:rgba(255,0,255,0.55);
+  box-shadow:0 0 18px rgba(255,0,255,0.32);
+  color:var(--accent);
+}
+
+/* Main play/pause button */
+#pauseBtn{
+  width:58px;height:58px;
+  border:none;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:white;
+  cursor:pointer;
+  box-shadow:0 0 28px rgba(255,0,255,0.6),0 0 56px rgba(255,0,255,0.18),inset 0 1px 0 rgba(255,255,255,0.2);
+  transition:transform .18s,box-shadow .18s;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+  position:relative;
+  overflow:hidden;
+}
+
+#pauseBtn::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  background:linear-gradient(135deg,rgba(255,255,255,0.18) 0%,transparent 60%);
+  pointer-events:none;
+}
+
+#pauseBtn svg{width:22px;height:22px;flex-shrink:0;}
+
+/* Toggle icons via class */
+#pauseBtn .icon-pause{display:none;}
+#pauseBtn.is-playing .icon-play{display:none;}
+#pauseBtn.is-playing .icon-pause{display:block;}
+
+#pauseBtn:hover{
+  transform:scale(1.08);
+  box-shadow:0 0 40px rgba(255,0,255,0.75),0 0 70px rgba(255,0,255,0.25);
+}
+
+#pauseBtn:active{transform:scale(.91);}
+
+.now-info{flex:1;min-width:0;}
+
+#nowTitle{
+  font-size:15px;
+  font-weight:800;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  letter-spacing:.8px;
+  color:#fff;
+  text-shadow:0 0 18px rgba(255,0,255,0.55), 0 1px 4px rgba(0,0,0,0.8);
+}
+
+#nowSubtitle{display:none;}
+
+/* Visualizer bars in player */
+.player-viz{
+  display:flex;
+  align-items:flex-end;
+  gap:3px;
+  height:18px;
+  margin-top:5px;
+}
+
+.player-viz span{
+  width:3px;
+  border-radius:3px;
+  background:linear-gradient(to top,var(--accent),var(--accent3));
+  opacity:.3;
+  transition:.2s;
+}
+
+.player-viz.playing span{
+  opacity:1;
+  animation:vizBar 1.1s infinite ease-in-out;
+}
+
+.player-viz span:nth-child(1){height:6px;animation-delay:.0s;}
+.player-viz span:nth-child(2){height:13px;animation-delay:.1s;}
+.player-viz span:nth-child(3){height:9px;animation-delay:.22s;}
+.player-viz span:nth-child(4){height:18px;animation-delay:.32s;}
+.player-viz span:nth-child(5){height:11px;animation-delay:.44s;}
+.player-viz span:nth-child(6){height:16px;animation-delay:.55s;}
+.player-viz span:nth-child(7){height:8px;animation-delay:.65s;}
+.player-viz span:nth-child(8){height:14px;animation-delay:.75s;}
+
+@keyframes vizBar{
+  0%,100%{transform:scaleY(.35);}
+  50%{transform:scaleY(1);}
+}
+
+#loopBtn{
+  width:38px;height:38px;
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:11px;
+  background:rgba(255,255,255,0.07);
+  color:rgba(255,255,255,0.65);
+  cursor:pointer;
+  transition:background .22s,border-color .22s,color .22s,box-shadow .22s;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+}
+
+#loopBtn svg{width:16px;height:16px;flex-shrink:0;}
+
+#loopBtn:hover{
+  background:rgba(255,0,255,0.14);
+  border-color:rgba(255,0,255,0.35);
+  color:white;
+}
+
+#loopBtn.active{
+  background:rgba(255,0,255,0.18);
+  border-color:rgba(255,0,255,0.45);
+  box-shadow:0 0 16px rgba(255,0,255,0.22);
+  color:var(--accent);
+}
+
+.bars-row{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+#progressBar,#volumeBar{
+  -webkit-appearance:none;
+  appearance:none;
+  width:100%;
+  height:5px;
+  border-radius:10px;
+  /* --pct is updated by JS; filled = magenta→purple, empty = dark */
+  background:linear-gradient(to right,
+    #ff00ff 0%,
+    #8a00ff var(--pct,0%),
+    rgba(255,255,255,0.09) var(--pct,0%),
+    rgba(255,255,255,0.09) 100%
+  );
+  cursor:pointer;
+  outline:none;
+  transition:background 0.08s linear;
+}
+
+#progressBar::-webkit-slider-thumb,#volumeBar::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:15px;height:15px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  cursor:pointer;
+  box-shadow:0 0 14px rgba(255,0,255,0.75), 0 0 0 3px rgba(255,0,255,0.18);
+  border:2px solid rgba(255,255,255,0.3);
+  transition:transform .15s;
+}
+
+#progressBar::-webkit-slider-thumb:hover,#volumeBar::-webkit-slider-thumb:hover{
+  transform:scale(1.25);
+}
+
+#progressBar::-moz-range-thumb,#volumeBar::-moz-range-thumb{
+  width:15px;height:15px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  cursor:pointer;
+  border:2px solid rgba(255,255,255,0.3);
+  box-shadow:0 0 14px rgba(255,0,255,0.7);
+}
+
+/* Firefox filled track */
+#progressBar::-moz-range-progress,#volumeBar::-moz-range-progress{
+  background:linear-gradient(to right,#ff00ff,#8a00ff);
+  border-radius:10px;
+  height:5px;
+}
+
+.time-label{
+  font-size:10px;
+  color:rgba(255,255,255,0.38);
+  width:34px;
+  flex-shrink:0;
+  text-align:center;
+}
+
+.volume-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.volume-row span{font-size:13px;flex-shrink:0;opacity:.55;}
+
+#navToggle{
+  position:fixed;
+  bottom:158px;right:18px;
+  width:42px;height:42px;
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:14px;
+  background:rgba(8,1,18,0.88);
+  backdrop-filter:blur(20px);
+  color:white;
+  font-size:15px;
+  cursor:pointer;
+  z-index:100000;
+  transition:bottom .35s ease, transform .35s ease, background .25s, border-color .25s;
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+
+#navToggle.visible{display:flex;}
+#navToggle:hover{background:rgba(255,0,255,0.14);}
+/* When player bar is collapsed, sit just above the nav bar */
+#navToggle.player-hidden{bottom:82px;}
+#navToggle.active{
+  background:rgba(255,0,255,0.2);
+  border-color:rgba(255,0,255,0.4);
+  transform:rotate(180deg);
+}
+
+/* ===== BOTTOM NAV ===== */
+.app-nav{
+  position:fixed;
+  bottom:0;left:0;
+  width:100%;height:74px;
+  background:rgba(5,1,13,0.97);
+  border-top:1px solid rgba(255,0,255,0.12);
+  display:flex;
+  justify-content:center;
+  align-items:stretch;
+  gap:4px;
+  z-index:99999;
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  box-shadow:0 -1px 0 rgba(255,0,255,0.08),0 -22px 44px rgba(0,0,0,0.55);
+  transition:transform .4s ease;
+  padding:7px 10px;
+}
+
+.app-nav.hidden{transform:translateY(100%);}
+
+.nav-btn{
+  appearance:none;
+  border:none;
+  background:transparent;
+  color:rgba(255,255,255,0.3);
+  flex:1 1 0;
+  max-width:110px;min-width:66px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  cursor:pointer;
+  border-radius:14px;
+  transition:.28s ease;
+  position:relative;
+  font-family:'Orbitron',sans-serif;
+}
+
+.nav-icon-wrap{
+  width:36px;height:36px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:11px;
+  font-size:17px;
+  transition:.28s ease;
+}
+
+.nav-label{
+  font-size:8px;
+  font-weight:700;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  transition:.28s ease;
+}
+
+.nav-btn:hover{color:rgba(255,255,255,0.65);}
+.nav-btn:hover .nav-icon-wrap{background:rgba(255,255,255,0.05);}
+.nav-btn.active{color:white;}
+.nav-btn.active .nav-icon-wrap{
+  background:linear-gradient(135deg,rgba(255,0,255,0.28),rgba(138,0,255,0.28));
+  box-shadow:0 0 22px rgba(255,0,255,0.38),inset 0 1px 0 rgba(255,255,255,0.08);
+  transform:translateY(-3px);
+}
+.nav-btn:active .nav-icon-wrap{transform:scale(.88);}
+
+/* ===== HOST VIEW ===== */
+.host-header{
+  text-align:center;
+  padding:32px 20px 10px;
+}
+
+.host-header h1{
+  color:var(--accent);
+  font-size:24px;
+  letter-spacing:3px;
+  filter:drop-shadow(0 0 18px var(--accent));
+}
+
+.host-header p{
+  color:#777;
+  margin-top:8px;
+  font-size:10px;
+  letter-spacing:1.5px;
+}
+
+.input-box{
+  width:90%;max-width:600px;
+  margin:20px auto;
+  display:flex;
+  gap:10px;
+}
+
+.input-box input{
+  flex:1;
+  padding:14px 18px;
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:14px;
+  background:rgba(255,255,255,0.05);
+  color:white;
+  outline:none;
+  font-family:'Orbitron',sans-serif;
+  font-size:12px;
+  transition:.3s;
+}
+
+.input-box input:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 20px rgba(255,0,255,0.18);
+}
+
+.input-box button,.btn{
+  padding:14px 22px;
+  border:none;border-radius:14px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:white;font-weight:700;
+  cursor:pointer;transition:.25s;
+  font-family:'Orbitron',sans-serif;
+  font-size:11px;letter-spacing:1.5px;
+}
+
+.input-box button:hover,.btn:hover{
+  filter:brightness(1.15);
+  transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(255,0,255,0.35);
+}
+
+.panel{
+  width:90%;max-width:700px;
+  margin:20px auto;padding:24px;
+  border-radius:22px;
+  background:rgba(10,1,20,0.88);
+  border:1px solid var(--border);
+  backdrop-filter:blur(22px);
+  display:none;
+  animation:panelIn .4s cubic-bezier(.22,1,.36,1);
+}
+
+.panel.show{display:block;}
+
+@keyframes panelIn{
+  from{opacity:0;transform:translateY(-16px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+.panel h2{
+  text-align:center;
+  color:var(--accent);
+  margin-bottom:18px;
+  font-size:14px;
+  letter-spacing:3px;
+}
+
+.panel label{
+  font-size:10px;color:#777;
+  display:block;
+  margin-top:12px;margin-bottom:5px;
+  text-transform:uppercase;letter-spacing:1.5px;
+}
+
+.panel input{
+  width:100%;
+  padding:13px 16px;
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:12px;
+  background:rgba(255,255,255,0.04);
+  color:white;outline:none;
+  font-family:'Orbitron',sans-serif;
+  font-size:12px;transition:.3s;
+}
+
+.panel input:focus{
+  border-color:var(--accent);
+  background:rgba(255,0,255,0.04);
+}
+
+.panel .btn{width:100%;padding:14px;margin-top:16px;}
+
+.user{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 14px;margin:8px 0;
+  background:rgba(255,255,255,0.04);
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.06);
+  transition:.25s;
+}
+
+.user:hover{background:rgba(255,0,255,0.05);border-color:rgba(255,0,255,0.18);}
+.user input{width:18px;height:18px;accent-color:var(--accent);}
+
+.upload-progress{
+  height:4px;border-radius:10px;
+  background:rgba(255,255,255,0.07);
+  overflow:hidden;margin-top:14px;display:none;
+}
+
+.upload-progress.show{display:block;}
+
+.upload-progress-fill{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  transition:width .2s ease;border-radius:10px;
+}
+
+/* ===== CHAT VIEW ===== */
+.chat-header{
+  text-align:center;
+  padding:30px 20px 8px;
+  font-size:20px;
+  font-weight:700;
+  color:var(--accent);
+  letter-spacing:4px;
+  filter:drop-shadow(0 0 14px var(--accent));
+}
+
+.chat-container{
+  width:92%;max-width:860px;
+  margin:auto;
+  padding-top:18px;padding-bottom:134px;
+  display:flex;flex-direction:column;
+  gap:13px;min-height:120px;
+}
+
+.message-row{display:flex;width:100%;}
+.message-row.left{justify-content:flex-start;}
+.message-row.right{justify-content:flex-end;}
+
+.message{
+  max-width:72%;
+  padding:13px 16px;
+  border-radius:20px;
+  position:relative;
+  word-wrap:break-word;
+  line-height:1.55;
+  animation:fadeUp .35s ease;
+  font-size:12px;
+}
+
+.message-row.left .message{
+  background:rgba(20,6,36,0.9);
+  border:1px solid rgba(255,255,255,0.07);
+  border-top-left-radius:4px;
+  backdrop-filter:blur(12px);
+}
+
+.message-row.right .message{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  box-shadow:0 4px 20px rgba(255,0,255,0.28);
+  border-bottom-right-radius:4px;
+}
+
+.username{
+  font-size:9px;margin-bottom:5px;
+  color:rgba(255,255,255,0.55);
+  font-weight:700;letter-spacing:1.5px;
+}
+
+.selectBox{
+  position:absolute;top:8px;right:8px;
+  width:18px;height:18px;
+  accent-color:var(--accent);display:none;
+}
+
+.send-box{
+  position:fixed;
+  left:50%;transform:translateX(-50%);
+  bottom:84px;
+  width:92%;max-width:860px;
+  display:flex;gap:10px;
+  z-index:9998;
+  background:rgba(5,1,13,0.92);
+  backdrop-filter:blur(22px);
+  padding:10px;border-radius:22px;
+  border:1px solid rgba(255,255,255,0.06);
+  box-shadow:0 -4px 30px rgba(0,0,0,0.45);
+}
+
+.send-box input{
+  flex:1;
+  padding:14px 18px;
+  border:1px solid transparent;
+  border-radius:16px;
+  background:rgba(255,255,255,0.05);
+  color:white;outline:none;
+  font-size:12px;font-family:'Orbitron',sans-serif;
+  transition:.3s;
+}
+
+.send-box input:focus{border-color:rgba(255,0,255,0.28);}
+
+.send-box button{
+  padding:14px 22px;border:none;
+  border-radius:16px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:white;font-weight:700;
+  font-size:11px;letter-spacing:1.5px;
+  cursor:pointer;transition:.25s;
+  font-family:'Orbitron',sans-serif;
+}
+
+.send-box button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 20px rgba(255,0,255,0.35);
+}
+
+#deleteBtn{
+  display:none;margin:14px auto;
+  padding:10px 20px;border:none;
+  border-radius:14px;background:#c0122c;
+  color:white;font-weight:700;cursor:pointer;
+  font-family:'Orbitron',sans-serif;
+  font-size:10px;letter-spacing:1.5px;
+}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(16px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* ===== PROFILE VIEW ===== */
+.profile-header{
+  text-align:center;
+  padding:32px 20px 8px;
+}
+
+.profile-header h1{
+  color:var(--accent);
+  font-size:22px;letter-spacing:4px;
+  filter:drop-shadow(0 0 18px var(--accent));
+}
+
+.profile-card{
+  width:90%;max-width:580px;
+  margin:20px auto;padding:26px;
+  background:rgba(10,1,20,0.88);
+  border-radius:22px;
+  border:1px solid var(--border);
+  box-shadow:0 0 50px rgba(255,0,255,0.08);
+  backdrop-filter:blur(22px);
+}
+
+.label{
+  color:#666;font-size:9px;
+  text-transform:uppercase;letter-spacing:2.5px;
+  margin-top:16px;margin-bottom:6px;
+}
+
+.value{
+  font-size:17px;margin-bottom:16px;
+  color:var(--accent);font-weight:700;letter-spacing:1px;
+}
+
+.msgBox{
+  margin-top:8px;margin-bottom:18px;
+  max-height:360px;overflow-y:auto;
+}
+
+.msg{
+  display:flex;align-items:center;gap:12px;
+  background:rgba(255,255,255,0.04);
+  padding:12px 14px;border-radius:14px;
+  margin:8px 0;
+  border:1px solid rgba(255,0,255,0.1);
+  transition:.25s;
+}
+
+.msg:hover{
+  border-color:rgba(255,0,255,0.32);
+  background:rgba(255,0,255,0.05);
+}
+
+.beast-img{
+  width:52px;height:52px;object-fit:cover;
+  border-radius:12px;
+  border:2px solid rgba(255,0,255,0.22);
+  flex-shrink:0;
+}
+
+.beast-info{flex:1;min-width:0;}
+
+.beast-info b{
+  display:block;font-size:11px;color:white;
+  margin-bottom:3px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  letter-spacing:.5px;
+}
+
+.beast-info span{
+  display:block;font-size:9px;
+  color:var(--accent);letter-spacing:2px;text-transform:uppercase;
+}
+
+.beast-unstar{
+  padding:8px 13px;
+  border:1px solid rgba(255,152,0,0.38);
+  border-radius:10px;cursor:pointer;
+  font-weight:700;transition:.25s;
+  flex-shrink:0;font-size:11px;
+  background:rgba(255,152,0,0.09);
+  color:#ff9800;font-family:'Orbitron',sans-serif;
+}
+
+.beast-unstar:hover{
+  background:#ff9800;color:white;
+  box-shadow:0 4px 16px rgba(255,152,0,0.4);
+}
+
+.beast-play.play-btn{
+  flex:0 0 auto;padding:8px 14px;
+  font-size:10px;border-radius:10px;gap:6px;
+}
+
+.logout-btn{
+  width:100%;padding:15px;margin-top:20px;
+  border:none;border-radius:14px;
+  background:linear-gradient(135deg,#ff2244,#cc0022);
+  color:white;font-weight:700;cursor:pointer;
+  font-size:12px;letter-spacing:2.5px;
+  transition:.25s;
+  box-shadow:0 0 20px rgba(255,34,68,0.2);
+  font-family:'Orbitron',sans-serif;
+}
+
+.logout-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 28px rgba(255,34,68,0.5);
+}
+
+.msgBox::-webkit-scrollbar{width:3px;}
+.msgBox::-webkit-scrollbar-track{background:transparent;}
+.msgBox::-webkit-scrollbar-thumb{background:var(--accent);border-radius:10px;}
+
+/* ===== FOOTER ===== */
+footer{
+  text-align:center;color:#3a3a3a;
+  padding:26px;font-size:9px;letter-spacing:3px;
+}
+
+/* ===== MOBILE — 2-column grid, compact cards ===== */
+@media(max-width:640px){
+  .topbar{gap:8px;padding:12px 14px;}
+  .view-title{display:none;}
+  .search-box{width:100%;max-width:none;}
+  .songs{
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    padding:10px 11px 200px;
+  }
+  .phonk-image{height:148px;}
+  .content{padding:9px 11px 11px;}
+  .content h2{
+    font-size:12.5px;
+    font-weight:800;
+    letter-spacing:0;        /* reclaim horizontal space */
+    white-space:normal;      /* allow wrapping */
+    overflow:hidden;
+    display:-webkit-box;
+    -webkit-line-clamp:2;    /* max 2 lines, then ellipsis */
+    -webkit-box-orient:vertical;
+    text-overflow:ellipsis;
+    line-height:1.35;
+    margin-bottom:4px;
+    text-shadow:0 1px 10px rgba(0,0,0,0.9);
+  }
+  .artist{font-size:8.5px;margin-bottom:8px;letter-spacing:1px;}
+  .play-btn,.download-btn{font-size:8.5px;padding:10px 6px;letter-spacing:1px;}
+  .play-tri{border-width:4px 0 4px 7px;}
+  #pauseBtn{width:48px;height:48px;}
+  #pauseBtn svg{width:18px;height:18px;}
+  #nowTitle{font-size:11px;}
+  .nav-label{font-size:7.5px;}
+  .logo{font-size:18px;}
+  .cloud-badge{font-size:8px;padding:4px 8px;}
+  .star-btn{width:32px;height:32px;font-size:14px;}
+}
+
+/* ===== LAPTOP (900 px +) ===== */
+@media(min-width:900px){
+  .topbar{padding:16px 36px;}
+  .search-box{width:380px;max-width:none;}
+  .songs{
+    grid-template-columns:repeat(auto-fill,minmax(272px,1fr));
+    gap:22px;
+    padding:18px 36px 220px;
+  }
+}
+
+/* ===== DESKTOP (1200 px +) ===== */
+@media(min-width:1200px){
+  .topbar{padding:18px 52px;}
+  .logo{font-size:26px;}
+  .search-box{width:440px;}
+  .search-box input{font-size:13px;padding:12px 22px 12px 46px;}
+  .songs{
+    grid-template-columns:repeat(auto-fill,minmax(296px,1fr));
+    gap:26px;
+    padding:20px 52px 230px;
+  }
+  .phonk-image{height:256px;}
+  .content{padding:16px 20px 20px;}
+  .content h2{font-size:15px;}
+  .hero{padding:56px 24px 20px;}
+  .hero img{width:170px;height:170px;}
+  #nowPlaying{padding:20px 30px;gap:15px;}
+  .player-controls{gap:12px;}
+  #pauseBtn{width:62px;height:62px;}
+  #pauseBtn svg{width:24px;height:24px;}
+  #prevBtn,#nextBtn,#shuffleBtn,#loopBtn{width:42px;height:42px;}
+  .now-art{width:60px;height:60px;}
+  #nowTitle{font-size:14px;}
+}
+
+/* ===== WIDE DESKTOP (1600 px +) ===== */
+@media(min-width:1600px){
+  .topbar{padding:20px 72px;}
+  .songs{
+    grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+    gap:30px;
+    padding:22px 72px 240px;
+  }
+  .phonk-image{height:278px;}
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- BACKGROUND -->
+<div class="ghosts">
+  <div class="ghost g1"></div>
+  <div class="ghost g2"></div>
+  <div class="ghost g3"></div>
+  <div class="ghost g4"></div>
+  <div class="ghost g5"></div>
+</div>
+
+<div class="particles">
+  <span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span>
+</div>
+
+<!-- BACKGROUND MUSIC -->
+<audio id="bgMusic" src="phonk/bg.mp3" loop preload="auto" autoplay muted playsinline style="display:none"></audio>
+<script>
+(function(){
+  var bg = document.getElementById("bgMusic");
+  bg.volume = 0.25;
+  var TIME_KEY = "phonkBgTime";
+  var MUTED_KEY = "phonkBgMuted";
+  /* Clear any stale stopped flag left by older versions */
+  localStorage.removeItem("phonkBgStopped");
+  var savedTime = parseFloat(localStorage.getItem(TIME_KEY));
+  function applySavedTime(){
+    if(!isNaN(savedTime) && savedTime > 0 && isFinite(bg.duration) && bg.duration > 0){
+      try{ bg.currentTime = savedTime % bg.duration; }catch(e){}
+    }
+  }
+  if(bg.readyState >= 1) applySavedTime();
+  else bg.addEventListener("loadedmetadata", applySavedTime, {once:true});
+  bg.muted = true;
+  bg.play().catch(function(){});
+  function unmute(){
+    bg.muted = false;
+    bg.play().catch(function(){});
+    localStorage.setItem(MUTED_KEY, "0");
+  }
+  if(localStorage.getItem(MUTED_KEY) === "0") unmute();
+  /* Auto-unmute when arriving from login — user already gave a gesture */
+  if(localStorage.getItem("phonkFromLogin") === "1"){
+    localStorage.removeItem("phonkFromLogin");
+    setTimeout(function(){ unmute(); }, 120);
+  }
+  ["click","keydown","touchstart","mousemove","scroll","pointerdown"].forEach(function(evt){
+    document.addEventListener(evt, unmute, {once:true, passive:true});
+  });
+  function persistTime(){
+    if(!bg.paused) localStorage.setItem(TIME_KEY, String(bg.currentTime));
+  }
+  window.addEventListener("beforeunload", persistTime);
+  window.addEventListener("pagehide", persistTime);
+  setInterval(persistTime, 1000);
+})();
+</script>
+
+<!-- TOP BAR -->
+<nav class="topbar">
+  <div class="logo">PHONK HUB</div>
+  <div class="view-title" id="viewTitle">HOME</div>
+  <div class="search-box" id="searchBoxWrap">
+    <input type="text" id="searchInput" placeholder="Search phonks..." oninput="searchSongs()">
+  </div>
+</nav>
+
+<!-- ===== HOME VIEW ===== -->
+<section class="view active" id="view-home">
+
+  <section class="hero">
+    <div class="hero-logo-wrap">
+      <img src="image/logo.jpg">
+    </div>
+    <p>Stream Your Favorite Drift &amp; Aggressive Phonks</p>
+  </section>
+
+  <section class="songs" id="songsContainer">
+    <!-- Skeleton cards shown while loading -->
+    <div class="skeleton-card"><div class="sk-img"></div><div class="sk-body"><div class="sk-line"></div><div class="sk-line short"></div><div class="sk-line xshort"></div><div class="sk-btns"><div class="sk-btn"></div><div class="sk-btn"></div></div></div></div>
+    <div class="skeleton-card"><div class="sk-img"></div><div class="sk-body"><div class="sk-line"></div><div class="sk-line short"></div><div class="sk-line xshort"></div><div class="sk-btns"><div class="sk-btn"></div><div class="sk-btn"></div></div></div></div>
+    <div class="skeleton-card"><div class="sk-img"></div><div class="sk-body"><div class="sk-line"></div><div class="sk-line short"></div><div class="sk-line xshort"></div><div class="sk-btns"><div class="sk-btn"></div><div class="sk-btn"></div></div></div></div>
+    <div class="skeleton-card"><div class="sk-img"></div><div class="sk-body"><div class="sk-line"></div><div class="sk-line short"></div><div class="sk-line xshort"></div><div class="sk-btns"><div class="sk-btn"></div><div class="sk-btn"></div></div></div></div>
+    <div class="skeleton-card"><div class="sk-img"></div><div class="sk-body"><div class="sk-line"></div><div class="sk-line short"></div><div class="sk-line xshort"></div><div class="sk-btns"><div class="sk-btn"></div><div class="sk-btn"></div></div></div></div>
+    <div class="skeleton-card"><div class="sk-img"></div><div class="sk-body"><div class="sk-line"></div><div class="sk-line short"></div><div class="sk-line xshort"></div><div class="sk-btns"><div class="sk-btn"></div><div class="sk-btn"></div></div></div></div>
+  </section>
+
+  <footer>© 2026 PHONK HUB</footer>
+
+</section>
+
+<!-- ===== HOST VIEW ===== -->
+<section class="view" id="view-host">
+
+  <div class="host-header">
+    <h1>👑 HOST PANEL</h1>
+    <p>Type <b>ADMIN CODE</b> to unlock admin system</p>
+  </div>
+
+  <div class="input-box">
+    <input type="text" id="codeInput" placeholder="Enter code">
+    <button onclick="checkCode()">UNLOCK</button>
+  </div>
+
+  <div class="panel" id="addPanel">
+    <h2>➕ ADD PHONK</h2>
+    <label>Phonk Title</label>
+    <input type="text" id="songTitle" placeholder="Phonk Title">
+    <label>Creator / Artist Name</label>
+    <input type="text" id="songCreator" placeholder="Artist Name">
+    <label>Upload Cover Image</label>
+    <input type="file" id="songImage" accept="image/*">
+    <label>Upload Phonk Audio</label>
+    <input type="file" id="songAudio" accept="audio/*">
+    <div class="upload-progress" id="uploadProgress">
+      <div class="upload-progress-fill" id="uploadProgressFill"></div>
+    </div>
+    <button class="btn" id="uploadBtn" onclick="uploadPhonk()">UPLOAD PHONK</button>
+  </div>
+
+  <div class="panel" id="userPanel">
+    <h2>👤 USER MANAGEMENT</h2>
+    <div id="usersList"></div>
+    <button class="btn" onclick="deleteUsers()">DELETE SELECTED USERS</button>
+  </div>
+
+</section>
+
+<!-- ===== POST / CHAT VIEW ===== -->
+<section class="view" id="view-post">
+
+  <div class="chat-header">💬 PHONK CHAT</div>
+
+  <button id="deleteBtn">DELETE SELECTED</button>
+
+  <div class="chat-container" id="messages"></div>
+
+  <div class="send-box">
+    <input type="text" id="messageInput" placeholder="Type message...">
+    <button onclick="sendMessage()">SEND</button>
+  </div>
+
+</section>
+
+<!-- ===== PROFILE VIEW ===== -->
+<section class="view" id="view-profile">
+
+  <div class="profile-header"><h1>👤 PROFILE</h1></div>
+
+  <div class="profile-card">
+    <div class="label">👤 Username</div>
+    <div class="value" id="username">---</div>
+
+    <div class="label">⭐ Favorite Phonks</div>
+    <div class="msgBox" id="beastBox">
+      <div class="empty-state">
+        <div class="empty-state-icon">🎵</div>
+        <div>No favorite phonks yet</div>
+      </div>
+    </div>
+
+    <button class="logout-btn" onclick="logout()">🔓 LOGOUT</button>
+  </div>
+
+</section>
+
+<!-- ===== PLAYER BAR ===== -->
+<div id="nowPlaying" class="hidden">
+
+  <div class="player-top">
+    <img class="now-art" id="nowArt" src="image/logo.jpg">
+
+    <div class="player-controls">
+      <!-- Shuffle -->
+      <button id="shuffleBtn" onclick="toggleShuffle()" title="Shuffle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/>
+          <polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/>
+        </svg>
+      </button>
+      <!-- Previous -->
+      <button id="prevBtn" onclick="playPrevious()" title="Previous">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M6 6h2v12H6V6zm3.5 6 8.5-6v12l-8.5-6z"/>
+        </svg>
+      </button>
+      <!-- Play / Pause -->
+      <button id="pauseBtn" onclick="togglePause()" title="Play / Pause">
+        <!-- Play icon -->
+        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M5 3.5l14 8.5-14 8.5V3.5z"/>
+        </svg>
+        <!-- Pause icon -->
+        <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor">
+          <rect x="5" y="3" width="4" height="18" rx="1.5"/>
+          <rect x="15" y="3" width="4" height="18" rx="1.5"/>
+        </svg>
+      </button>
+      <!-- Next -->
+      <button id="nextBtn" onclick="playNext()" title="Next">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18 6h-2v12h2V6zm-3.5 6L6 6v12l8.5-6z"/>
+        </svg>
+      </button>
+      <!-- Loop -->
+      <button id="loopBtn" onclick="toggleLoop()" title="Loop">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+          <polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="now-info">
+      <div id="nowTitle">No Song Playing</div>
+      <div class="player-viz" id="playerViz">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bars-row">
+    <span class="time-label" id="curTime">0:00</span>
+    <input type="range" id="progressBar" min="0" max="100" value="0">
+    <span class="time-label" id="durTime">0:00</span>
+  </div>
+
+  <div class="volume-row">
+    <span>🔊</span>
+    <input type="range" id="volumeBar" min="0" max="1" step="0.01" value="1">
+  </div>
+
+</div>
+
+<!-- ===== BOTTOM NAV ===== -->
+<nav class="app-nav" id="appNav">
+
+  <button class="nav-btn active" data-view="home" onclick="switchView('home')">
+    <span class="nav-icon-wrap">🏠</span>
+    <span class="nav-label">HOME</span>
+  </button>
+
+  <button class="nav-btn" data-view="host" onclick="switchView('host')">
+    <span class="nav-icon-wrap">👑</span>
+    <span class="nav-label">HOST</span>
+  </button>
+
+  <button class="nav-btn" data-view="post" onclick="switchView('post')">
+    <span class="nav-icon-wrap">💬</span>
+    <span class="nav-label">POSTS</span>
+  </button>
+
+  <button class="nav-btn" data-view="profile" onclick="switchView('profile')">
+    <span class="nav-icon-wrap">👤</span>
+    <span class="nav-label">PROFILE</span>
+  </button>
+
+</nav>
+
+<button id="navToggle" onclick="toggleNavbar()">▼</button>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import {
+  getStorage, ref, uploadBytesResumable, getDownloadURL
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+import {
+  getAuth, signInAnonymously, onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+/* ===== FIREBASE ===== */
+const firebaseConfig = {
+  apiKey: "AIzaSyBecNPVaAA-cDg7Gmozx31BCIMWxrhPlh0",
+  authDomain: "phonkhub-e2f7a.firebaseapp.com",
+  projectId: "phonkhub-e2f7a",
+  storageBucket: "phonkhub-e2f7a.firebasestorage.app",
+  messagingSenderId: "914767759699",
+  appId: "1:914767759699:web:cd6aeb130938695f4c39a6"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const storage = getStorage(app);
+const auth = getAuth(app);
+
+let resolveAuthReady;
+let authReady = new Promise((resolve) => { resolveAuthReady = resolve; });
+
+onAuthStateChanged(auth, (user) => { if(user) resolveAuthReady(user); });
+
+signInAnonymously(auth).catch((err) => {
+  console.warn("Anonymous auth failed:", err);
+  resolveAuthReady(null);
+});
+
+async function ensureAuth(){
+  try{
+    await Promise.race([authReady, new Promise((resolve) => setTimeout(resolve, 300))]);
+  }catch(e){ console.warn("Auth not ready:", e); }
+}
+
+/* ===== STATIC SONG LIBRARY ===== */
+const staticSongs = [
+  {name:"Manasha",            artist:"Ashreveal",   file:"phonk/Manasha.mp3",                        image:"image/cover_00.jpg"},
+  {name:"NEXT-NCTS",          artist:"NCTS",         file:"phonk/NEXT-NCTS.mp3",                       image:"image/cover_01.jpg"},
+  {name:"FRAGMENT",           artist:"slxughter",    file:"phonk/Fragment.mp3",                        image:"image/cover_02.jpg"},
+  {name:"LUZ ROZA",           artist:"bxkq",         file:"phonk/Luz Roza.mp3",                        image:"image/cover_03.jpg"},
+  {name:"NO DESCENDO",        artist:"ZXKAI",        file:"phonk/No Descendo.mp3",                     image:"image/cover_04.jpg"},
+  {name:"VAI SENTAR",         artist:"NEAR DEATH",   file:"phonk/Vai Sentar.mp3",                      image:"image/cover_05.jpg"},
+  {name:"X-TALI",             artist:"MXCCREE",      file:"phonk/X- TALI.mp3",                         image:"image/cover_06.jpg"},
+  {name:"MATADORA",           artist:"DJ Asul",      file:"phonk/MATADORA.mp3",                        image:"image/cover_07.jpg"},
+  {name:"OLHA MENSAGEM",      artist:"SEKIMANE",     file:"phonk/Olha Mensagem.mp3",                   image:"image/cover_08.jpg"},
+  {name:"REVENGE!",           artist:"1HXSX",        file:"phonk/REVENGE!.mp3",                        image:"image/cover_09.jpg"},
+  {name:"SENTO",              artist:"QMIIR",        file:"phonk/SENTO.mp3",                           image:"image/cover_10.jpg"},
+  {name:"Sol Vibra",          artist:"DJ Zarek",     file:"phonk/Sol Vibra .mp3",                      image:"image/cover_11.jpg"},
+  {name:"Amor Na Praia",      artist:"Flame Runner", file:"phonk/Amor Na Praia.mp3",                   image:"image/cover_12.jpg"},
+  {name:"FUNK SIGILO SLOWED", artist:"h6itam",       file:"phonk/FUNK SIGILO SLOWED.mp3",              image:"image/cover_13.jpg"},
+  {name:"FRAGMENT SLOWED",    artist:"slxughter",    file:"phonk/Fragment slowed.mp3",                 image:"image/cover_02.jpg"},
+  {name:"LUZ ROJA SLOWED",    artist:"bxkq",         file:"phonk/Luz Roja Slowed.mp3",                 image:"image/cover_03.jpg"},
+  {name:"TIKI TIKI",          artist:"QMIIR",        file:"phonk/TIKI TIKI.mp3",                       image:"image/cover_16.jpg"},
+  {name:"ENVY SLOWED",        artist:"slxughter",    file:"phonk/envy slowed.mp3",                     image:"image/cover_17.jpg"},
+  {name:"MONTAGEM COMA",      artist:"ANDROMEDA",    file:"phonk/MONTAGEM COMA.mp3",                   image:"image/cover_18.jpg"},
+  {name:"FUNK CRIMINAL",      artist:"ICEDMANE",     file:"phonk/FUNK CRIMINAL.mp3",                   image:"image/cover_19.jpg"},
+  {name:"FUNK UNIVERSO",      artist:"Irokz",        file:"phonk/FUNK UNIVERSO.mp3",                   image:"image/cover_20.jpg"},
+  {name:"LOUCURA LETAL",      artist:"Nakama",       file:"phonk/LOUCURA LETAL.mp3",                   image:"image/cover_21.jpg"},
+  {name:"Los Voltage!",       artist:"Sayfalse",     file:"phonk/Los Voltage!.mp3",                    image:"image/cover_22.jpg"},
+  {name:"Matushka Ultrafunk", artist:"satirin",      file:"phonk/Matushka Ultrafunk.mp3",              image:"image/cover_23.jpg"},
+  {name:"NO BATIDO",          artist:"ZXKAI",        file:"phonk/NO BATIDO.mp3",                       image:"image/cover_24.jpg"},
+  {name:"ODNOGO ULTRAFUNK",   artist:"VaporVice",    file:"phonk/ODNOGO ULTRAFUNK.mp3",                image:"image/cover_25.jpg"},
+  {name:"VOCE NA MIRA",       artist:"Hwungii",      file:"phonk/VOCE NA MIRA - Hwungii, DJ VGK1.mp3", image:"image/cover_26.jpg"},
+];
+
+let allSongs = staticSongs.map((s, i) => {
+  const override = localStorage.getItem("phonkArtist_" + i);
+  return {...s, cloud:false, artist: override !== null ? override : s.artist};
+});
+
+let currentIndex = null;
+let loopEnabled = false;
+let shuffleEnabled = false;
+let isProgressDragging = false;
+let navVisible = true;
+let playMode = "home";
+let profilePlaylist = [];
+
+const player = new Audio();
+window.__phonkPlayer = player;
+
+const bgMusic = document.getElementById("bgMusic");
+
+/* ===== USER / FAVORITES HELPERS ===== */
+function getFavoritesKey(){
+  let user = localStorage.getItem("phonkUser") || "guest";
+  return "favorites_" + user;
+}
+
+/* ===== LOAD CLOUD SONGS ===== */
+async function loadCloudSongs(){
+  try{
+    const snapshot = await getDocs(collection(db,"songs"));
+    const cloudSongs = [];
+    snapshot.forEach((d)=>{
+      const data = d.data();
+      cloudSongs.push({
+        id:d.id,
+        name:data.title || "Untitled Phonk",
+        artist:data.creator || data.artist || "",
+        file:data.audio,
+        image:data.image || "image/logo.jpg",
+        cloud:true
+      });
+    });
+    allSongs = [...cloudSongs, ...staticSongs.map((s, i) => {
+      const ov = localStorage.getItem("phonkArtist_" + i);
+      return {...s, cloud:false, artist: ov !== null ? ov : s.artist};
+    })];
+  }catch(err){
+    console.warn("Could not load cloud phonks:", err);
+  }
+  createSongs();
+  restoreStarStates();
+}
+
+/* ===== RENDER SONGS ===== */
+function createSongs(){
+  const container = document.getElementById("songsContainer");
+  if(!container) return;
+
+  if(allSongs.length === 0){
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">🎵</div>
+        <div>No phonks yet</div>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = allSongs.map((song, index) => `
+    <div class="card" data-index="${index}" style="animation-delay:${Math.min(index * 0.045, 0.55)}s">
+      <div class="phonk-image">
+        <img src="${song.image}" loading="lazy" alt="${song.name}">
+        ${song.cloud ? `<span class="cloud-badge">☁ NEW</span>` : ``}
+        <button class="star-btn" onclick="toggleStar(event,${index})">★</button>
+      </div>
+      <div class="content">
+        <h2>${song.name}</h2>
+        <p class="artist">${song.artist || ""}</p>
+        <div class="buttons">
+          <button class="play-btn" onclick="playSongByIndex(${index})">
+            <span class="play-tri"></span>
+            <span class="play-text">PLAY</span>
+            <div class="mini-wave"><span></span><span></span><span></span><span></span></div>
+          </button>
+          <a href="${song.file}" download style="flex:1;">
+            <button class="download-btn" style="width:100%;">DOWNLOAD</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  `).join("");
+
+  restoreStarStates();
+  reflectPlayingCard();
+}
+
+function reflectPlayingCard(){
+  document.querySelectorAll(".card").forEach(card => {
+    const idx = Number(card.dataset.index);
+    const btn = card.querySelector(".play-btn");
+    const isPlaying = idx === currentIndex && !player.paused;
+    card.classList.toggle("playing", idx === currentIndex);
+    if(btn){
+      btn.classList.toggle("playing", isPlaying);
+      btn.querySelector(".play-text").innerText = isPlaying ? "PAUSE" : "PLAY";
+    }
+  });
+  document.querySelectorAll(".beast-play[data-song-index]").forEach(btn => {
+    const idx = Number(btn.dataset.songIndex);
+    const isPlaying = idx === currentIndex && !player.paused;
+    btn.classList.toggle("playing", isPlaying);
+    btn.querySelector(".play-text").innerText = isPlaying ? "PAUSE" : "PLAY";
+  });
+
+  /* Visualizer */
+  const viz = document.getElementById("playerViz");
+  if(viz) viz.classList.toggle("playing", currentIndex !== null && !player.paused);
+}
+
+/* ===== SLIDER FILL ===== */
+function setSliderFill(el){
+  const min = parseFloat(el.min) || 0;
+  const max = parseFloat(el.max) || 100;
+  const pct = ((parseFloat(el.value) - min) / (max - min)) * 100;
+  el.style.setProperty("--pct", pct.toFixed(2) + "%");
+}
+
+/* ===== PLAYBACK ===== */
+function formatTime(t){
+  if(!isFinite(t) || t < 0) return "0:00";
+  const m = Math.floor(t / 60);
+  const s = Math.floor(t % 60).toString().padStart(2,"0");
+  return `${m}:${s}`;
+}
+
+/* Shuffle helper: pick a random index different from current */
+function randomNext(){
+  if(allSongs.length <= 1) return 0;
+  let idx;
+  do { idx = Math.floor(Math.random() * allSongs.length); } while(idx === currentIndex);
+  return idx;
+}
+
+window.playSongByIndex = function(index){
+  const song = allSongs[index];
+  if(!song) return;
+  playMode = "home";
+
+  if(!bgMusic.paused) bgMusic.pause();
+
+  if(currentIndex === index){ togglePause(); return; }
+
+  currentIndex = index;
+  player.src = song.file;
+  player.loop = loopEnabled;
+  player.volume = Number(document.getElementById("volumeBar").value);
+  player.play().catch(()=>{});
+
+  document.getElementById("nowTitle").innerText = song.name;
+  document.getElementById("nowArt").src = song.image;
+  document.getElementById("pauseBtn").classList.add("is-playing");
+  document.getElementById("nowPlaying").classList.remove("hidden");
+  document.getElementById("navToggle").classList.add("visible");
+
+  reflectPlayingCard();
+};
+
+window.playNext = function(){
+  if(playMode === "profile"){
+    if(profilePlaylist.length === 0) return;
+    const pos = profilePlaylist.indexOf(currentIndex);
+    const nextPos = shuffleEnabled
+      ? Math.floor(Math.random() * profilePlaylist.length)
+      : (pos === -1 ? 0 : pos + 1) % profilePlaylist.length;
+    _playInProfile(profilePlaylist[nextPos]);
+  } else {
+    if(allSongs.length === 0) return;
+    const nextIndex = shuffleEnabled
+      ? randomNext()
+      : (currentIndex === null ? 0 : (currentIndex + 1) % allSongs.length);
+    playSongByIndex(nextIndex);
+  }
+};
+
+window.playPrevious = function(){
+  if(playMode === "profile"){
+    if(profilePlaylist.length === 0) return;
+    const pos = profilePlaylist.indexOf(currentIndex);
+    const prevPos = (pos <= 0 ? profilePlaylist.length : pos) - 1;
+    _playInProfile(profilePlaylist[prevPos]);
+  } else {
+    if(allSongs.length === 0) return;
+    const prevIndex = currentIndex === null ? allSongs.length - 1 : (currentIndex - 1 + allSongs.length) % allSongs.length;
+    playSongByIndex(prevIndex);
+  }
+};
+
+window.togglePause = function(){
+  if(currentIndex === null) return;
+  if(player.paused){
+    player.play().catch(()=>{});
+    document.getElementById("pauseBtn").classList.add("is-playing");
+  } else {
+    player.pause();
+    document.getElementById("pauseBtn").classList.remove("is-playing");
+  }
+  reflectPlayingCard();
+};
+
+window.toggleLoop = function(){
+  loopEnabled = !loopEnabled;
+  player.loop = loopEnabled;
+  document.getElementById("loopBtn").classList.toggle("active", loopEnabled);
+};
+
+window.toggleShuffle = function(){
+  shuffleEnabled = !shuffleEnabled;
+  document.getElementById("shuffleBtn").classList.toggle("active", shuffleEnabled);
+};
+
+player.addEventListener("play", () => {
+  reflectPlayingCard();
+  /* Silence bg music while a phonk track is playing */
+  if(!bgMusic.paused) bgMusic.pause();
+});
+player.addEventListener("pause", () => {
+  reflectPlayingCard();
+  /* Resume bg music when user pauses the phonk player */
+});
+player.addEventListener("ended", () => { if(!loopEnabled) playNext(); });
+
+player.addEventListener("timeupdate", () => {
+  if(isProgressDragging) return;
+  const progress = (player.currentTime / player.duration) * 100 || 0;
+  const pb = document.getElementById("progressBar");
+  pb.value = progress;
+  setSliderFill(pb);
+  document.getElementById("curTime").innerText = formatTime(player.currentTime);
+  document.getElementById("durTime").innerText = formatTime(player.duration);
+});
+
+document.getElementById("progressBar").addEventListener("mousedown", () => isProgressDragging = true);
+document.getElementById("progressBar").addEventListener("touchstart", () => isProgressDragging = true);
+document.getElementById("progressBar").addEventListener("mouseup", () => isProgressDragging = false);
+document.getElementById("progressBar").addEventListener("touchend", () => isProgressDragging = false);
+
+document.getElementById("progressBar").addEventListener("input", function(){
+  if(currentIndex !== null && isFinite(player.duration))
+    player.currentTime = (this.value / 100) * player.duration;
+  setSliderFill(this);
+});
+
+document.getElementById("volumeBar").addEventListener("input", function(){
+  player.volume = Number(this.value);
+  setSliderFill(this);
+});
+
+/* Initialise fills on page load */
+setSliderFill(document.getElementById("progressBar"));
+setSliderFill(document.getElementById("volumeBar"));
+
+/* ===== SEARCH ===== */
+window.searchSongs = function(){
+  const value = document.getElementById("searchInput").value.toLowerCase();
+  document.querySelectorAll(".card").forEach(card => {
+    const title = card.querySelector("h2").innerText.toLowerCase();
+    card.style.display = title.includes(value) ? "" : "none";
+  });
+};
+
+/* ===== FAVORITES / STAR ===== */
+window.toggleStar = function(event, index){
+  event.stopPropagation();
+  event.preventDefault();
+  const btn = event.currentTarget || event.target;
+  const favKey = getFavoritesKey();
+  let favorites = JSON.parse(localStorage.getItem(favKey)) || [];
+
+  if(favorites.includes(index)){
+    favorites = favorites.filter(fav => fav !== index);
+    btn.classList.remove("active");
+  } else {
+    favorites.push(index);
+    btn.classList.add("active");
+  }
+  localStorage.setItem(favKey, JSON.stringify(favorites));
+  if(document.getElementById("view-profile").classList.contains("active")) loadFavorites();
+};
+
+function restoreStarStates(){
+  const favKey = getFavoritesKey();
+  const favorites = JSON.parse(localStorage.getItem(favKey)) || [];
+  document.querySelectorAll(".star-btn").forEach((btn) => {
+    const index = Number(btn.closest(".card").dataset.index);
+    btn.classList.toggle("active", favorites.includes(index));
+  });
+}
+
+/* ===== PROFILE VIEW ===== */
+function renderProfile(){
+  const user = localStorage.getItem("phonkUser");
+  document.getElementById("username").innerText = user || "Guest User";
+  loadFavorites();
+}
+
+function loadFavorites(){
+  const favKey = getFavoritesKey();
+  const favorites = JSON.parse(localStorage.getItem(favKey)) || [];
+  const beastBox = document.getElementById("beastBox");
+
+  if(favorites.length === 0){
+    beastBox.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">🎵</div>
+        <div>No favorite phonks yet. Star your favorites from Home!</div>
+      </div>
+    `;
+    return;
+  }
+
+  beastBox.innerHTML = favorites.map((index) => {
+    const song = allSongs[index];
+    if(!song) return "";
+    return `
+      <div class="msg">
+        <img src="${song.image}" class="beast-img" alt="${song.name}">
+        <div class="beast-info">
+          <b>${song.name}</b>
+          <span>${song.artist || ""}</span>
+        </div>
+        <button class="beast-play play-btn" data-song-index="${index}" onclick="playFromProfile(${index})">
+          <span class="play-tri"></span>
+          <span class="play-text">PLAY</span>
+          <div class="mini-wave"><span></span><span></span><span></span><span></span></div>
+        </button>
+        <button class="beast-unstar" onclick="removeFavorite(${index})">★</button>
+      </div>
+    `;
+  }).join("");
+}
+
+function _playInProfile(songIndex){
+  const song = allSongs[songIndex];
+  if(!song) return;
+  if(!bgMusic.paused) bgMusic.pause();
+  if(currentIndex === songIndex){ togglePause(); return; }
+  currentIndex = songIndex;
+  player.src = song.file;
+  player.loop = loopEnabled;
+  player.volume = Number(document.getElementById("volumeBar").value);
+  player.play().catch(()=>{});
+  document.getElementById("nowTitle").innerText = song.name;
+  document.getElementById("nowArt").src = song.image;
+  document.getElementById("pauseBtn").classList.add("is-playing");
+  document.getElementById("nowPlaying").classList.remove("hidden");
+  document.getElementById("navToggle").classList.add("visible");
+  reflectPlayingCard();
+}
+
+window.playFromProfile = function(songIndex){
+  const favKey = getFavoritesKey();
+  profilePlaylist = JSON.parse(localStorage.getItem(favKey)) || [];
+  _playInProfile(songIndex);
+  playMode = "profile";
+};
+
+window.removeFavorite = function(index){
+  const favKey = getFavoritesKey();
+  let favorites = JSON.parse(localStorage.getItem(favKey)) || [];
+  favorites = favorites.filter(fav => fav !== index);
+  localStorage.setItem(favKey, JSON.stringify(favorites));
+  loadFavorites();
+  restoreStarStates();
+};
+
+window.logout = function(){
+  if(confirm("Are you sure you want to logout?")){
+    localStorage.removeItem("phonkUser");
+    window.location.href = "index.html";
+  }
+};
+
+/* ===== HOST VIEW ===== */
+window.checkCode = function(){
+  const code = document.getElementById("codeInput").value;
+  if(code === "TQ"){
+    document.getElementById("addPanel").classList.add("show");
+    document.getElementById("userPanel").classList.add("show");
+    loadUsers();
+  } else {
+    alert("Wrong Code");
+  }
+  document.getElementById("codeInput").value = "";
+};
+
+async function loadUsers(){
+  const container = document.getElementById("usersList");
+  container.innerHTML = `<p style="opacity:.5;font-size:11px;text-align:center;padding:12px;">Loading users...</p>`;
+  await ensureAuth();
+  container.innerHTML = "";
+  try{
+    const snapshot = await getDocs(collection(db,"users"));
+    snapshot.forEach((d) => {
+      const u = d.data();
+      container.innerHTML += `
+        <div class="user">
+          <input type="checkbox" value="${d.id}">
+          <span>${u.username}</span>
+        </div>
+      `;
+    });
+  }catch(err){
+    console.error(err);
+    container.innerHTML = `<p style="color:#ff8080;font-size:11px;">Could not load users: ${err.message}</p>`;
+  }
+}
+
+window.deleteUsers = async function(){
+  await ensureAuth();
+  const selected = document.querySelectorAll("#usersList input[type=checkbox]:checked");
+  if(selected.length === 0){ alert("Select users first"); return; }
+  try{
+    for(const s of selected) await deleteDoc(doc(db,"users",s.value));
+    alert("Users Deleted");
+    loadUsers();
+  }catch(err){
+    console.error(err);
+    alert("Could not delete users: " + err.message);
+  }
+};
+
+window.uploadPhonk = async function(){
+  await ensureAuth();
+  const title = document.getElementById("songTitle").value.trim();
+  const imageFile = document.getElementById("songImage").files[0];
+  const audioFile = document.getElementById("songAudio").files[0];
+  if(!title || !imageFile || !audioFile){ alert("Fill all fields"); return; }
+
+  const uploadBtn = document.getElementById("uploadBtn");
+  const progressWrap = document.getElementById("uploadProgress");
+  const progressFill = document.getElementById("uploadProgressFill");
+
+  uploadBtn.disabled = true;
+  uploadBtn.innerText = "UPLOADING...";
+  progressWrap.classList.add("show");
+  progressFill.style.width = "0%";
+
+  try{
+    const imageRef = ref(storage, "images/" + Date.now() + "_" + imageFile.name);
+    await uploadResumable(imageRef, imageFile, (pct) => progressFill.style.width = (pct * 0.5) + "%");
+    const imageURL = await getDownloadURL(imageRef);
+
+    const audioRef = ref(storage, "songs/" + Date.now() + "_" + audioFile.name);
+    await uploadResumable(audioRef, audioFile, (pct) => progressFill.style.width = (50 + pct * 0.5) + "%");
+    const audioURL = await getDownloadURL(audioRef);
+
+    const creator = document.getElementById("songCreator").value.trim();
+    await addDoc(collection(db,"songs"), {
+      title, creator, image:imageURL, audio:audioURL, createdAt:Date.now()
+    });
+
+    progressFill.style.width = "100%";
+    alert("Phonk Uploaded Successfully");
+
+    document.getElementById("songTitle").value = "";
+    document.getElementById("songCreator").value = "";
+    document.getElementById("songImage").value = "";
+    document.getElementById("songAudio").value = "";
+
+    await loadCloudSongs();
+  }catch(err){
+    console.error(err);
+    alert("Upload Failed: " + (err && err.message ? err.message : err));
+  }finally{
+    uploadBtn.disabled = false;
+    uploadBtn.innerText = "UPLOAD PHONK";
+    setTimeout(() => {
+      progressWrap.classList.remove("show");
+      progressFill.style.width = "0%";
+    }, 800);
+  }
+};
+
+function uploadResumable(storageRef, file, onProgress){
+  return new Promise((resolve, reject) => {
+    const task = uploadBytesResumable(storageRef, file);
+    task.on("state_changed",
+      (snap) => { const pct = snap.totalBytes ? (snap.bytesTransferred / snap.totalBytes) : 0; if(onProgress) onProgress(pct * 100); },
+      (err) => reject(err),
+      () => resolve()
+    );
+  });
+}
+
+/* ===== CHAT VIEW ===== */
+let currentUser = localStorage.getItem("phonkUser") || localStorage.getItem("username") || "Unknown";
+const isAdmin = currentUser === "ADMIN";
+let postsLoaded = false;
+
+window.sendMessage = async function(){
+  await ensureAuth();
+  const input = document.getElementById("messageInput");
+  const text = input.value.trim();
+  if(text === "") return;
+
+  let finalUsername = currentUser;
+  if(finalUsername === "Unknown" || !finalUsername)
+    finalUsername = localStorage.getItem("phonkUser") || "Unknown";
+
+  try{
+    await addDoc(collection(db,"comments"), { username:finalUsername, text, time:Date.now() });
+    input.value = "";
+    loadMessages();
+  }catch(err){
+    console.error(err);
+    alert("Could not send message: " + err.message);
+  }
+};
+
+async function loadMessages(){
+  await ensureAuth();
+  const container = document.getElementById("messages");
+  container.innerHTML = `<p style="text-align:center;color:#555;font-size:11px;padding:24px;">Loading...</p>`;
+  try{
+    const q = query(collection(db,"comments"), orderBy("time","asc"));
+    const snapshot = await getDocs(q);
+    container.innerHTML = "";
+    snapshot.forEach((d) => {
+      const data = d.data();
+      const side = data.username === "ADMIN" ? "right" : "left";
+      container.innerHTML += `
+        <div class="message-row ${side}">
+          <div class="message" data-id="${d.id}">
+            <input type="checkbox" class="selectBox" value="${d.id}">
+            <div class="username">@${data.username}</div>
+            <div>${data.text}</div>
+          </div>
+        </div>
+      `;
+    });
+    if(container.innerHTML === ""){
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">💬</div>
+          <div>No messages yet. Say something!</div>
+        </div>
+      `;
+    }
+    if(isAdmin) enableLongPress();
+  }catch(err){
+    console.error(err);
+    container.innerHTML = `<p style="color:#ff8080;text-align:center;font-size:11px;">Could not load messages: ${err.message}</p>`;
+  }
+}
+
+function enableLongPress(){
+  const messages = document.querySelectorAll(".message");
+  messages.forEach(msg => {
+    let timer;
+    msg.addEventListener("touchstart", () => { timer = setTimeout(() => showSelect(msg), 700); });
+    msg.addEventListener("touchend", () => clearTimeout(timer));
+    msg.addEventListener("contextmenu", function(e){ e.preventDefault(); showSelect(msg); });
+  });
+}
+
+function showSelect(msg){
+  msg.querySelector(".selectBox").style.display = "block";
+  document.getElementById("deleteBtn").style.display = "block";
+}
+
+if(isAdmin){
+  document.getElementById("deleteBtn").addEventListener("click", async () => {
+    await ensureAuth();
+    const selected = document.querySelectorAll(".selectBox:checked");
+    for(const s of selected) await deleteDoc(doc(db,"comments",s.value));
+    loadMessages();
+  });
+}
+
+document.getElementById("messageInput").addEventListener("keypress", function(e){
+  if(e.key === "Enter") sendMessage();
+});
+
+/* ===== NAV TOGGLE ===== */
+window.toggleNavbar = function(){
+  const toggle = document.getElementById("navToggle");
+  const playerBar = document.getElementById("nowPlaying");
+  navVisible = !navVisible;
+  if(!navVisible){
+    toggle.classList.add("active");
+    toggle.classList.add("player-hidden");   // drop button near nav bar
+    playerBar.classList.add("hidden");
+  } else {
+    toggle.classList.remove("active");
+    toggle.classList.remove("player-hidden"); // restore position above player
+    if(currentIndex !== null) playerBar.classList.remove("hidden");
+  }
+};
+
+new MutationObserver(() => {
+  const playerBar = document.getElementById("nowPlaying");
+  const toggle = document.getElementById("navToggle");
+  if(!playerBar.classList.contains("hidden")) toggle.classList.add("visible");
+}).observe(document.getElementById("nowPlaying"), { attributes:true, attributeFilter:["class"] });
+
+/* ===== VIEW ROUTER ===== */
+const viewLabels = { home:"HOME", host:"HOST PANEL", post:"PHONK CHAT", profile:"PROFILE" };
+
+window.switchView = function(name){
+  if(!document.getElementById("view-" + name)) name = "home";
+  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+  document.getElementById("view-" + name).classList.add("active");
+  document.querySelectorAll(".nav-btn").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.view === name);
+  });
+  document.getElementById("viewTitle").innerText = viewLabels[name] || "";
+  document.getElementById("searchBoxWrap").style.display = name === "home" ? "" : "none";
+
+  if(name !== "host"){
+    document.getElementById("addPanel").classList.remove("show");
+    document.getElementById("userPanel").classList.remove("show");
+  }
+  if(name === "post" && !postsLoaded){ postsLoaded = true; loadMessages(); }
+  if(name === "post") loadMessages();
+  if(name === "profile") renderProfile();
+  if(history.replaceState) history.replaceState(null, "", "#" + name);
+};
+
+window.addEventListener("hashchange", () => {
+  const name = location.hash.replace("#","") || "home";
+  switchView(name);
+});
+
+/* ===== INIT ===== */
+createSongs();
+loadCloudSongs();
+
+const initialView = (location.hash.replace("#","") || "home");
+switchView(initialView);
+
+</script>
+<script src="cursor.js"></script>
+</body>
+
+</html>

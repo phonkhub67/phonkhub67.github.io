@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="cursor.css">
+  <meta name="google-site-verification" content="WIvAQHVLRcNjuCABlxwVWRE0HyTakU8Kxygkgc7uYjQ" />
+  <link rel="icon" type="image/png" sizes="512x512" href="image/logo.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="image/logo.png">
+  <meta property="og:image" content="image/logo.png">
+  <meta name="theme-color" content="#ff00ff">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PHONK HUB LOGIN</title>
+  <meta name="description" content="Get latest phonk music for free on PHONK HUB. Stream and download dark phonk tracks easily.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+<style>
+
+/* ── Extra polish on top of style.css ── */
+
+.logo-circle{
+  position:relative;
+  display:block;          /* block so margin:auto centers it */
+  width:fit-content;
+  margin:0 auto 6px;
+}
+
+.logo-circle::before{
+  content:"";
+  position:absolute;
+  inset:-16px;
+  border-radius:50%;
+  background:conic-gradient(from 0deg,#ff00ff,#8a00ff,#ff3cac,transparent,#ff00ff);
+  animation:spinRing 5s linear infinite;
+  filter:blur(12px);
+  opacity:0.6;
+  z-index:0;
+}
+
+@keyframes spinRing{to{transform:rotate(360deg);}}
+
+.logo{
+  position:relative;
+  z-index:1;
+}
+
+/* Glowing divider between title and inputs */
+.divider{
+  width:60px;
+  height:2px;
+  background:linear-gradient(90deg,transparent,#ff00ff,transparent);
+  margin:0 auto 24px;
+  border-radius:2px;
+  animation:divGlow 2.5s ease-in-out infinite;
+}
+
+@keyframes divGlow{
+  0%,100%{opacity:.5;width:40px;}
+  50%{opacity:1;width:80px;}
+}
+
+/* Input icon hints */
+.input-wrap{
+  position:relative;
+  margin-bottom:16px;
+}
+
+.input-wrap .input-icon{
+  position:absolute;
+  left:18px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:15px;
+  opacity:.35;
+  pointer-events:none;
+  font-family:sans-serif;
+}
+
+.input-wrap .input{
+  padding-left:46px;
+  margin-bottom:0;
+}
+
+/* Strength indicator shown only on the password field focus */
+.strength-bar{
+  height:3px;
+  border-radius:3px;
+  background:rgba(255,255,255,0.08);
+  overflow:hidden;
+  margin-top:6px;
+  transition:.3s;
+}
+
+.strength-fill{
+  height:100%;
+  width:0%;
+  border-radius:3px;
+  transition:width .4s ease, background .4s ease;
+}
+
+/* Button row */
+.btn-row{
+  display:flex;
+  gap:10px;
+  margin-top:8px;
+}
+
+.btn-row .btn{
+  margin-top:0;
+  flex:1;
+}
+
+.btn-register{
+  background:rgba(255,255,255,0.07) !important;
+  border:1px solid rgba(255,0,255,0.3) !important;
+  color:rgba(255,255,255,0.8) !important;
+}
+
+.btn-register:hover{
+  background:rgba(255,0,255,0.12) !important;
+  border-color:rgba(255,0,255,0.6) !important;
+  color:white !important;
+  box-shadow:0 0 20px rgba(255,0,255,0.25) !important;
+}
+
+/* Message box */
+#msg{
+  min-height:22px;
+}
+
+/* Subtle footer */
+.login-footer{
+  text-align:center;
+  font-size:9px;
+  letter-spacing:2px;
+  color:rgba(255,255,255,0.18);
+  margin-top:22px;
+  font-family:'Orbitron',sans-serif;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- GHOST ANIMATIONS -->
+<div class="ghosts">
+  <div class="ghost g1"></div>
+  <div class="ghost g2"></div>
+  <div class="ghost g3"></div>
+  <div class="ghost g4"></div>
+  <div class="ghost g5"></div>
+</div>
+
+<!-- PARTICLES -->
+<div class="particles">
+  <span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span>
+</div>
+
+<!-- LOGIN BOX -->
+<div class="login-box">
+
+  <!-- LOGO -->
+  <div class="logo-circle">
+    <img src="image/logo.jpg" class="logo">
+  </div>
+
+  <!-- TITLE -->
+  <h1 class="main-title">PHONK HUB</h1>
+
+  <p class="sub-title">ENTER THE DARK PHONK WORLD</p>
+
+  <div class="divider"></div>
+
+  <!-- INPUTS -->
+  <div class="input-wrap">
+    <span class="input-icon">👤</span>
+    <input type="text" id="username" class="input" placeholder="Username">
+  </div>
+
+  <div class="input-wrap">
+    <span class="input-icon">🔒</span>
+    <input type="password" id="password" class="input" placeholder="Password" oninput="updateStrength(this.value)">
+    <div class="strength-bar" id="strengthBar">
+      <div class="strength-fill" id="strengthFill"></div>
+    </div>
+  </div>
+
+  <!-- BUTTONS -->
+  <div class="btn-row">
+    <button class="btn btn-register" onclick="register()">REGISTER</button>
+    <button class="btn" onclick="login()">LOGIN</button>
+  </div>
+
+  <!-- MESSAGE -->
+  <div id="msg"></div>
+
+  <div class="login-footer">© 2026 PHONK HUB</div>
+
+</div>
+
+<!-- BACKGROUND MUSIC -->
+<audio id="bgMusic" src="phonk/bg.mp3" loop preload="auto" autoplay muted playsinline style="display:none"></audio>
+<script>
+(function(){
+  var bg = document.getElementById("bgMusic");
+  bg.volume = 0.25;
+  var STOPPED_KEY = "phonkBgStopped";
+  var TIME_KEY = "phonkBgTime";
+  var MUTED_KEY = "phonkBgMuted";
+  localStorage.removeItem(STOPPED_KEY);
+  /* Keep TIME_KEY so bg.mp3 resumes from where it left off on any page */
+  bg.muted = true;
+  var savedT = parseFloat(localStorage.getItem(TIME_KEY));
+  bg.addEventListener("canplay", function(){
+    if(!isNaN(savedT) && savedT > 0){ try{ bg.currentTime = savedT; }catch(e){} }
+  }, {once:true});
+  bg.play().catch(function(){});
+  function unmute(){
+    if(localStorage.getItem(STOPPED_KEY) === "1") return;
+    bg.muted = false;
+    bg.play().catch(function(){});
+    localStorage.setItem(MUTED_KEY, "0");
+  }
+  if(localStorage.getItem(MUTED_KEY) === "0") unmute();
+  ["click","keydown","touchstart","mousemove","scroll","pointerdown"].forEach(function(evt){
+    document.addEventListener(evt, unmute, {once:true, passive:true});
+  });
+  function persistTime(){
+    if(!bg.paused) localStorage.setItem(TIME_KEY, String(bg.currentTime));
+  }
+  window.addEventListener("beforeunload", persistTime);
+  window.addEventListener("pagehide", persistTime);
+  setInterval(persistTime, 1000);
+})();
+
+/* Password strength visualiser */
+function updateStrength(val){
+  var fill = document.getElementById("strengthFill");
+  var len = val.length;
+  var pct = 0, color = "#ff2244";
+  if(len >= 4){ pct = 33; color = "#ff9800"; }
+  if(len >= 7){ pct = 66; color = "#ffea00"; }
+  if(len >= 10){ pct = 100; color = "#00e676"; }
+  fill.style.width = pct + "%";
+  fill.style.background = color;
+}
+</script>
+
+<!-- FIREBASE -->
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+
+import {
+  getFirestore, collection, addDoc, getDocs
+} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
+import {
+  getAuth, signInAnonymously, onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBecNPVaAA-cDg7Gmozx31BCIMWxrhPlh0",
+  authDomain: "phonkhub-e2f7a.firebaseapp.com",
+  projectId: "phonkhub-e2f7a",
+  storageBucket: "phonkhub-e2f7a.firebasestorage.app",
+  messagingSenderId: "914767759699",
+  appId: "1:914767759699:web:cd6aeb130938695f4c39a6"
+};
+
+const app = initializeApp(firebaseConfig);
+const db  = getFirestore(app);
+const auth = getAuth(app);
+
+let resolveAuthReady;
+let authReady = new Promise((resolve) => { resolveAuthReady = resolve; });
+
+onAuthStateChanged(auth, (user) => { if(user) resolveAuthReady(user); });
+
+signInAnonymously(auth).catch((err)=>{
+  console.warn("Anonymous auth failed:", err);
+  resolveAuthReady(null);
+});
+
+async function ensureAuth(){
+  try{
+    await Promise.race([authReady, new Promise((resolve)=>setTimeout(resolve, 300))]);
+  }catch(e){ console.warn("Auth not ready:", e); }
+}
+
+function show(text, color){
+  document.getElementById("msg").innerHTML = `<span style="color:${color};font-size:12px;letter-spacing:1px;">${text}</span>`;
+}
+
+/* REGISTER */
+window.register = async function(){
+  try{
+    await ensureAuth();
+    let username = document.getElementById("username").value.trim();
+    let password = document.getElementById("password").value.trim();
+    let regex = /^[A-Za-z_]{1,8}$/;
+    if(!regex.test(username)){ show("Only letters &amp; underscore (max 8 chars)", "red"); return; }
+    if(password.length < 4){ show("Password too short (min 4)", "red"); return; }
+
+    let snap = await getDocs(collection(db,"users"));
+    let exists = false;
+    snap.forEach(doc=>{ if(doc.data().username === username) exists = true; });
+    if(exists){ show("Username already taken", "red"); return; }
+
+    await addDoc(collection(db,"users"), { username, password });
+    localStorage.setItem("phonkUser", username);
+    localStorage.setItem("username", username);
+    localStorage.setItem("phonkFromLogin", "1");
+    window.location.href = "home.html#home";
+  }catch(err){
+    console.error("Register failed:", err);
+    show(err.message || "Register failed", "red");
+  }
+};
+
+/* LOGIN */
+window.login = async function(){
+  try{
+    await ensureAuth();
+    let username = document.getElementById("username").value.trim();
+    let password = document.getElementById("password").value.trim();
+    let snap = await getDocs(collection(db,"users"));
+    let found = false;
+    snap.forEach(doc=>{
+      let data = doc.data();
+      if(data.username === username && data.password === password) found = true;
+    });
+    if(found){
+      localStorage.setItem("phonkUser", username);
+      localStorage.setItem("username", username);
+      localStorage.setItem("phonkFromLogin", "1");
+      window.location.href = "home.html#home";
+    } else {
+      show("Wrong username or password", "red");
+    }
+  }catch(err){
+    console.error("Login failed:", err);
+    show(err.message || "Login failed", "red");
+  }
+};
+
+/* Allow Enter key to submit */
+document.addEventListener("keypress", (e)=>{
+  if(e.key === "Enter") window.login();
+});
+
+</script>
+<script src="cursor.js"></script>
+</body>
+
+</html>
